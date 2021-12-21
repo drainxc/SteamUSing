@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "discord.js": "^13.3.1",
+    "steam-price-api": "^2.0.0",
+    "steamapi": "^2.2.0"
+  }
+}
