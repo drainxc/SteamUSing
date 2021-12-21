@@ -21,43 +21,7 @@ client.on("message", (msg) => {
           steam.getGameDetails(`${item[i].appid}`, false).then((object) => {
             if (object.type === "game") {
               console.log(object);
-              const infoEmbed = new MessageEmbed()
-                .setColor("#0099ff")
-                .setTitle(object.name)
-                .setURL(object.website)
-                .setAuthor(
-                  "SteamUSing",
-                  "https://i.imgur.com/AfFp7pu.png",
-                  object.website
-                )
-                .setDescription(`${object.short_description}`)
-                .setThumbnail(object.movies[0].thumbnail)
-                .addField(`${object.developers}`, `${object.support_info.email}`)
-                .addField("\u200B", "\u200B")
-                .addFields(
-                  {
-                    name: "현재 가격",
-                    value: `${object.price_overview.final_formatted }`,
-                    inline: true,
-                  },
-                  {
-                    name: "할인율",
-                    value: `${object.price_overview.discount_percent}` + "%",
-                    inline: true,
-                  },
-                  {
-                    name: "메타 스코어",
-                    value: `${object.metacritic.score}` + "점",
-                    inline: true,
-                  }
-                )
-                .setImage(object.header_image)
-                .setTimestamp()
-                .setFooter(
-                  "© " + `${object.publishers}`,
-                  "https://i.imgur.com/AfFp7pu.png"
-                );
-
+              infoEmbed = embed(object);
               msg.channel.send({ embeds: [infoEmbed] });
             }
           });
@@ -87,13 +51,54 @@ client.on("message", (msg) => {
             steam.getGameDetails(`${item[i].appid}`, false).then((object) => {
               console.log(object);
               if (object.type === "music") {
-                // msg.reply(object.name);
+                infoEmbed = embed(object);
+                msg.channel.send({ embeds: [infoEmbed] });
               }
             });
           }
         }
       }
     });
+  }
+
+  function embed(object) {
+    const infoEmbed = new MessageEmbed()
+      .setColor("#0099ff")
+      .setTitle(object.name)
+      .setURL(object.website)
+      .setAuthor(
+        "SteamUSing",
+        "https://i.imgur.com/AfFp7pu.png",
+        object.website
+      )
+      .setDescription(`${object.short_description}`)
+      .setThumbnail(object.header_image)
+      .addField(`${object.developers}`, `${object.support_info.email}`)
+      .addField("\u200B", "\u200B")
+      .addFields(
+        {
+          name: "현재 가격",
+          value: `${object.price_overview.final_formatted}`,
+          inline: true,
+        },
+        {
+          name: "할인율",
+          value: `${object.price_overview.discount_percent}` + "%",
+          inline: true,
+        },
+        {
+          name: "평가 갯수",
+          value: `${object.recommendations.total}`,
+          inline: true,
+        }
+      )
+      .setImage(object.header_image)
+      .setTimestamp()
+      .setFooter(
+        `${object.publishers}`,
+        "https://i.imgur.com/AfFp7pu.png"
+      );
+    return infoEmbed;
   }
 });
 
