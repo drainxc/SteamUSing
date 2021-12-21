@@ -14,6 +14,17 @@ client.on("message", (msg) => {
   if (msg.content.substring(0, 4) === "!정보 ") {
     steam.getAppList().then((item) => {
       console.log(item);
+      for (let i = 0; i < item.length; i++) {
+        if (item[i].name.toUpperCase() === msg.content.slice(4).toUpperCase()) {
+          console.log(item[i].appid);
+          steam.getGameDetails(`${item[i].appid}`, false).then((object) => {
+            console.log(object);
+            if (object.type === "game") {
+              // msg.reply(object.name);
+            }
+          });
+        }
+      }
     });
   }
 });
