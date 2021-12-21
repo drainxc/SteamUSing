@@ -19,8 +19,8 @@ client.on("message", (msg) => {
         if (item[i].name.toUpperCase() === msg.content.slice(4).toUpperCase()) {
           console.log(item[i].appid);
           steam.getGameDetails(`${item[i].appid}`, false).then((object) => {
+            console.log(object);
             if (object.type === "game") {
-              console.log(object);
               infoEmbed = embed(object);
               msg.channel.send({ embeds: [infoEmbed] });
             }
@@ -62,42 +62,46 @@ client.on("message", (msg) => {
   }
 
   function embed(object) {
+    const {
+      name = "",
+      website = "",
+      short_description = "",
+      header_image = "",
+      developers = "",
+      price_overview = "",
+      recommendations = "",
+      publishers = "",
+    } = object;
+    const { final_formatted = "무료", discount_percent = "0" } = price_overview;
     const infoEmbed = new MessageEmbed()
       .setColor("#0099ff")
-      .setTitle(object.name)
-      .setURL(object.website)
-      .setAuthor(
-        "SteamUSing",
-        "https://i.imgur.com/AfFp7pu.png",
-        object.website
-      )
-      .setDescription(`${object.short_description}`)
-      .setThumbnail(object.header_image)
-      .addField(`${object.developers}`, `${object.support_info.email}`)
+      .setTitle(name)
+      .setURL(website)
+      .setAuthor("SteamUSing", "https://i.imgur.com/AfFp7pu.png", website)
+      .setDescription(`${short_description}`)
+      .setThumbnail(header_image)
+      .addField("개발사", `${developers[0]}`)
       .addField("\u200B", "\u200B")
       .addFields(
         {
           name: "현재 가격",
-          value: `${object.price_overview.final_formatted}`,
+          value: `${final_formatted}`,
           inline: true,
         },
         {
           name: "할인율",
-          value: `${object.price_overview.discount_percent}` + "%",
+          value: `${discount_percent}` + "%",
           inline: true,
         },
         {
           name: "평가 갯수",
-          value: `${object.recommendations.total}`,
+          value: `${recommendations.total}`,
           inline: true,
         }
       )
-      .setImage(object.header_image)
+      .setImage(header_image)
       .setTimestamp()
-      .setFooter(
-        `${object.publishers}`,
-        "https://i.imgur.com/AfFp7pu.png"
-      );
+      .setFooter(`${publishers[0]}`, "https://i.imgur.com/AfFp7pu.png");
     return infoEmbed;
   }
 });
