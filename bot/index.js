@@ -11,8 +11,10 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg) => {
-  if (msg.content === "ping") {
-    msg.reply("pong");
+  if (msg.content.substring(0, 4) === "!정보 ") {
+    steam.getAppList().then((item) => {
+      console.log(item);
+    });
   }
 });
 
