@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const { Client, Intents } = require("discord.js");
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -42,15 +42,18 @@ client.on("ready", () => {
               const { price_overview = "", type = "" } = object;
               const { discount_percent = 0 } = price_overview;
               if (type === "game") {
-                if (discount_percent === 100) {
+                if (discount_percent === 0) {
                   console.log(object);
                   const saleEmbed = new MessageEmbed()
                     .setColor(color)
                     .setTitle(object.name)
                     .setAuthor("SteamUSing", logo)
                     .setThumbnail(object.header_image)
+                    .addField("가격", "무료")
                     .setFooter(object.publishers[0], logo);
                   saleItem = saleEmbed;
+                } else {
+                  console.log("asdf");
                 }
               }
             })
