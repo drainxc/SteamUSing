@@ -42,7 +42,7 @@ client.on("ready", () => {
               const { price_overview = "", type = "" } = object;
               const { discount_percent = 0 } = price_overview;
               if (type === "game") {
-                if (discount_percent === 0) {
+                if (discount_percent === 100) {
                   console.log(object);
                   const saleEmbed = new MessageEmbed()
                     .setColor(color)
@@ -52,21 +52,15 @@ client.on("ready", () => {
                     .addField("가격", "무료")
                     .setFooter(object.publishers[0], logo);
                   saleItem = saleEmbed;
-                } else {
-                  console.log("asdf");
                 }
               }
             })
-            .catch((err) => {
-              console.log(err);
-            });
+            .catch((err) => {});
         }
         count += 1;
       }, (item.applist.apps.length / 24 / 60 / 60) * 1000);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 });
 
 client.on("message", (msg) => {
@@ -192,6 +186,22 @@ client.on("message", (msg) => {
     });
   }
 
+  if (msg.content.substring(0, 7) === ">>유저등록 ") {
+    if (msg.content.length === 23) {
+      const nickName = msg.author.username + "#" + msg.author.discriminator;
+      const steamID = msg.content.substring(7, msg.content.length);
+      console.log(nickName, steamID);
+      const userEmbed = new MessageEmbed()
+        .setColor(color)
+        .setTitle("회원가입이 성공적으로 완료되었습니다!")
+        .setAuthor("SteamUSing", logo)
+        .setFooter("SteamUSing", logo);
+      msg.reply({ embeds: [userEmbed] });
+    } else {
+      msg.reply("steam ID가 잘 못 되었습니다!");
+    }
+  }
+
   if (msg.content.substring(0, 4) === ">>도움") {
     const helpEmbed = new MessageEmbed()
       .setColor("#0099ff")
@@ -201,7 +211,13 @@ client.on("message", (msg) => {
       .addFields(
         {
           name: ">>도움",
-          value: "지원하는 모든 명령어를 보실 수 있습니다! \n >>도움",
+          value: "지원하는 모든 명령어를 보실 수 있습니다! \n ex) >>도움",
+          inline: false,
+        },
+        {
+          name: ">>유저등록",
+          value:
+            "유저의 스팀ID를 기억해 언제든지 사용하실 수 있습니다! \n ex) >>유저등록 76561199042079317(steam ID)",
           inline: false,
         },
         {
@@ -217,7 +233,7 @@ client.on("message", (msg) => {
         },
         {
           name: ">>세일",
-          value: "현재 100% 세일하는 게임을 보실 수 있습니다! \n >>세일",
+          value: "현재 100% 세일하는 게임을 보실 수 있습니다! \n ex) >>세일",
         },
         {
           name: ">>동접자",
