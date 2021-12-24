@@ -13,6 +13,7 @@ module.exports = {
       .getAppList()
       .then((item) => {
         console.log(item);
+        let loading = true;
         for (let i = 0; i < item.length; i++) {
           if (
             item[i].name.toUpperCase() === msg.content.slice(5).toUpperCase()
