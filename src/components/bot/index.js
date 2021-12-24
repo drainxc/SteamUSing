@@ -9,9 +9,16 @@ const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 const TOKEN = process.env.TOKEN;
 
+const embed = require("../../lib/function/infoEmbed/index");
+
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
 const color = "#0D7EAD";
+let message;
+let saletime = {
+  hours: 0,
+  minutes: 0,
+};
 
 let saleItem = new MessageEmbed()
   .setColor(color)
@@ -28,7 +35,7 @@ client.on("ready", () => {
         const now = new Date();
         const hours = now.getHours();
         const minutes = now.getMinutes();
-        if (hours === 0 && minutes === 0) {
+        if (hours === saletime.hours && minutes === saletime.minutes) {
           count = 0;
           saleItem = new MessageEmbed()
             .setColor(color)
@@ -51,6 +58,10 @@ client.on("ready", () => {
                     .setThumbnail(object.header_image)
                     .addField("가격", "무료")
                     .setFooter(object.publishers[0], logo);
+                  saletime = {
+                    hours: hours,
+                    minutes: minutes,
+                  };
                   saleItem = saleEmbed;
                 }
               }
@@ -64,8 +75,10 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg) => {
-  message = msg;
   if (msg.content.substring(0, 5) === ">>정보 ") {
+    msg.reply("정보를 불러오는 중입니다!").then((msg) => {
+      message = msg;
+    });
     steam
       .getAppList()
       .then((item) => {
@@ -80,7 +93,8 @@ client.on("message", (msg) => {
               .getGameDetails(`${item[i].appid}`, false)
               .then((object) => {
                 console.log(object);
-                infoEmbed = embed(object);
+                message.delete();
+                infoEmbed = embed.infoEmbed(object);
                 msg.channel.send({ embeds: [infoEmbed] });
               })
               .catch((err) => {
@@ -99,6 +113,9 @@ client.on("message", (msg) => {
   }
 
   if (msg.content.substring(0, 5) === ">>노래 ") {
+    msg.reply("정보를 불러오는 중입니다!").then((msg) => {
+      message = msg;
+    });
     steam
       .getAppList()
       .then((item) => {
@@ -121,9 +138,9 @@ client.on("message", (msg) => {
               steam
                 .getGameDetails(`${item[i].appid}`, false)
                 .then((object) => {
-                  console.log(object);
                   if (object.type === "music") {
-                    infoEmbed = embed(object);
+                    message.delete();
+                    infoEmbed = embed.infoEmbed(object);
                     msg.channel.send({ embeds: [infoEmbed] });
                   }
                 })
@@ -148,30 +165,8 @@ client.on("message", (msg) => {
             .then((player) => {
               steam
                 .getGameDetails(`${item[i].appid}`, false)
-                .then((item) => {
-                  const playerEmbed = new MessageEmbed()
-                    .setColor(color)
-                    .setTitle(item.name)
-                    .setAuthor("SteamUSing", logo)
-                    .setThumbnail(item.header_image)
-                    .addFields(
-                      {
-                        name: "개발사",
-                        value: item.developers[0],
-                        inline: true,
-                      },
-                      {
-                        name: "출시 날짜",
-                        value: item.release_date.date,
-                        inline: true,
-                      },
-                      {
-                        name: "동접자 수",
-                        value: `${player}`,
-                        inline: true,
-                      }
-                    )
-                    .setFooter(item.publishers[0], logo);
+                .then((object) => {
+                  playerEmbed = embed.playerEmbed(object, player);
                   msg.channel.send({ embeds: [playerEmbed] });
                 })
                 .catch((err) => {
@@ -244,51 +239,6 @@ client.on("message", (msg) => {
       )
       .setFooter("(단, 게임의 이름은 풀 네임으로 작성하셔야 합니다!)", logo);
     msg.channel.send({ embeds: [helpEmbed] });
-  }
-
-  function embed(object) {
-    const {
-      name = "",
-      website = "",
-      short_description = "",
-      header_image = "",
-      developers = "",
-      price_overview = "",
-      recommendations = "",
-      publishers = "",
-    } = object;
-    const { final_formatted = "무료", discount_percent = "없음" } =
-      price_overview;
-    const { total = "없음" } = recommendations;
-    const infoEmbed = new MessageEmbed()
-      .setColor(color)
-      .setTitle(name)
-      .setURL(website)
-      .setAuthor("SteamUSing", logo, website)
-      .setDescription(`${short_description}`)
-      .addField("개발사", `${developers[0]}`)
-      .addField("\u200B", "\u200B")
-      .addFields(
-        {
-          name: "현재 가격",
-          value: `${final_formatted}`,
-          inline: true,
-        },
-        {
-          name: "할인율",
-          value: `${discount_percent}` + "%",
-          inline: true,
-        },
-        {
-          name: "평가 갯수",
-          value: `${total}`,
-          inline: true,
-        }
-      )
-      .setImage(header_image)
-      .setTimestamp()
-      .setFooter(`${publishers[0]}`, logo);
-    return infoEmbed;
   }
 });
 
