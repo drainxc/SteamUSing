@@ -16,6 +16,7 @@ const soundTrack = require("../../lib/function/soundTrack/index");
 const player = require("../../lib/function/player/index");
 const sale = require("../../lib/function/sale/index");
 const userInfomation = require("../../lib/function/userInfo/index");
+const recentGame = require("../../lib/function/recentGame/index");
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
@@ -73,6 +74,21 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg) => {
+  // async function SignUp() {
+  //   const data = {
+  //     idx: "76561199042079317",
+  //     userTag: "동구리#8542",
+  //   };
+  //   await axios
+  //     .post("http://" + data + "/account/create")
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
+
+  // SignUp();
+
   if (msg.content.substring(0, 5) === ">>정보 ") {
     information.infomation(msg);
   }
@@ -107,37 +123,7 @@ client.on("message", (msg) => {
   }
 
   if (msg.content.substring(0, 6) === ">>최근게임") {
-    steam
-      .getUserRecentGames("76561199042079317")
-      .then((item) => {
-        const playerEmbed = new MessageEmbed()
-          .setColor(color)
-          .setTitle(item[0].name)
-          .setAuthor("SteamUSing", logo)
-          .setThumbnail(item[0].logoURL)
-          .addFields(
-            {
-              name: "게임",
-              value: item[0].name,
-              inline: true,
-            },
-            {
-              name: "총 플레이타임",
-              value: `${(item[0].playTime / 60).toFixed(1)}` + "시간",
-              inline: true,
-            },
-            {
-              name: "최근 플레이타임",
-              value: `${(item[0].playTime2 / 60).toFixed(1)}` + "시간",
-              inline: true,
-            }
-          )
-          .setFooter("SteamUSing", logo);
-        msg.channel.send({ embeds: [playerEmbed] });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    recentGame.recentGame(msg);
   }
 
   if (msg.content.substring(0, 4) === ">>도움") {
