@@ -47,5 +47,31 @@ module.exports = {
       .setTimestamp()
       .setFooter(`${publishers[0]}`, logo);
     return infoEmbed;
-  }
+  },
+  playerEmbed: function (object, player) {
+    const playerEmbed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(object.name)
+      .setAuthor("SteamUSing", logo)
+      .setThumbnail(object.header_image)
+      .addFields(
+        {
+          name: "개발사",
+          value: object.developers[0],
+          inline: true,
+        },
+        {
+          name: "출시 날짜",
+          value: object.release_date.date,
+          inline: true,
+        },
+        {
+          name: "동접자 수",
+          value: `${player}`,
+          inline: true,
+        }
+      )
+      .setFooter(object.publishers[0], logo);
+    return playerEmbed;
+  },
 };
