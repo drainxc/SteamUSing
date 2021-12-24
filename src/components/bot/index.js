@@ -8,6 +8,7 @@ const API_KEY = process.env.APIKEY;
 const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 const TOKEN = process.env.TOKEN;
+const axios = require("axios");
 
 const embed = require("../../lib/function/embed/index");
 const information = require("../../lib/function/infomation/index");
@@ -87,7 +88,7 @@ client.on("message", (msg) => {
   if (msg.content.substring(0, 6) === ">>동접자 ") {
     player.player(msg);
   }
-  
+
   if (msg.content.substring(0, 6) === ">>유저정보") {
     userInfomation.userInfomation(msg);
   }
@@ -103,6 +104,40 @@ client.on("message", (msg) => {
       msg.reply("steam ID가 잘 못 되었습니다!");
       console.log(msg.content.length);
     }
+  }
+
+  if (msg.content.substring(0, 6) === ">>최근게임") {
+    steam
+      .getUserRecentGames("76561199042079317")
+      .then((item) => {
+        const playerEmbed = new MessageEmbed()
+          .setColor(color)
+          .setTitle(item[0].name)
+          .setAuthor("SteamUSing", logo)
+          .setThumbnail(item[0].logoURL)
+          .addFields(
+            {
+              name: "게임",
+              value: item[0].name,
+              inline: true,
+            },
+            {
+              name: "총 플레이타임",
+              value: `${(item[0].playTime / 60).toFixed(1)}` + "시간",
+              inline: true,
+            },
+            {
+              name: "최근 플레이타임",
+              value: `${(item[0].playTime2 / 60).toFixed(1)}` + "시간",
+              inline: true,
+            }
+          )
+          .setFooter("SteamUSing", logo);
+        msg.channel.send({ embeds: [playerEmbed] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   if (msg.content.substring(0, 4) === ">>도움") {
