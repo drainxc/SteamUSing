@@ -117,4 +117,33 @@ module.exports = {
       .setFooter("(단, 게임의 이름은 풀 네임으로 작성하셔야 합니다!)", logo);
     return helpEmbed;
   },
+  saleEmbed: function (object) {
+    const saleEmbed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(object.name)
+      .setAuthor("SteamUSing", logo)
+      .setThumbnail(object.header_image)
+      .addFields(
+        {
+          name: "가격",
+          value: "무료",
+          inline: true,
+        },
+        {
+          name: "할인율",
+          value: "100%",
+          inline: true,
+        }
+      )
+      .setFooter(object.publishers[0], logo);
+    return saleEmbed;
+  },
+  userEmbed: function () {
+    const userEmbed = new MessageEmbed()
+      .setColor(color)
+      .setTitle("회원가입이 성공적으로 완료되었습니다!")
+      .setAuthor("SteamUSing", logo)
+      .setFooter("SteamUSing", logo);
+    return userEmbed;
+  },
 };
