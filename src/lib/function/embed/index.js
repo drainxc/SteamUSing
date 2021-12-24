@@ -142,12 +142,77 @@ module.exports = {
       .setFooter(object.publishers[0], logo);
     return saleEmbed;
   },
-  userEmbed: function () {
-    const userEmbed = new MessageEmbed()
+  signUpEmbed: function () {
+    const signUpEmbed = new MessageEmbed()
       .setColor(color)
       .setTitle("회원가입이 성공적으로 완료되었습니다!")
       .setAuthor("SteamUSing", logo)
       .setFooter("SteamUSing", logo);
+    return signUpEmbed;
+  },
+  userEmbed: function (item, game, playGame, level) {
+    const userEmbed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(item.nickname)
+      .setURL(item.url)
+      .setAuthor("SteamUSing", logo)
+      .setThumbnail(item.avatar.large)
+      .addField("\u200B", "\u200B")
+      .addFields(
+        {
+          name: "닉네임",
+          value: `${item.nickname}`,
+          inline: true,
+        },
+        {
+          name: "레벨",
+          value: `${level}`,
+          inline: true,
+        },
+        {
+          name: "steam ID",
+          value: `${item.steamID}`,
+          inline: true,
+        },
+        {
+          name: "가장 많이 플레이한 게임",
+          value: game[playGame].name,
+          inline: true,
+        },
+        {
+          name: "가진 게임 갯수",
+          value: `${game.length}`,
+          inline: true,
+        }
+      )
+      .setImage(game[playGame].logoURL)
+      .setFooter("SteamUSing", logo);
     return userEmbed;
+  },
+  resentEmbed: function (item) {
+    const recentEmbed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(item[0].name)
+      .setAuthor("SteamUSing", logo)
+      .setThumbnail(item[0].logoURL)
+      .addFields(
+        {
+          name: "게임",
+          value: item[0].name,
+          inline: true,
+        },
+        {
+          name: "총 플레이타임",
+          value: `${(item[0].playTime / 60).toFixed(1)}` + "시간",
+          inline: true,
+        },
+        {
+          name: "최근 플레이타임",
+          value: `${(item[0].playTime2 / 60).toFixed(1)}` + "시간",
+          inline: true,
+        }
+      )
+      .setFooter("SteamUSing", logo);
+    return recentEmbed;
   },
 };

@@ -114,8 +114,8 @@ client.on("message", (msg) => {
       const nickName = msg.author.username + "#" + msg.author.discriminator;
       const steamID = msg.content.substring(7, msg.content.length);
       console.log(nickName, steamID);
-      userEmbed = embed.userEmbed();
-      msg.reply({ embeds: [userEmbed] });
+      signUpEmbed = embed.signUpEmbed();
+      msg.reply({ embeds: [signUpEmbed] });
     } else {
       msg.reply("steam ID가 잘 못 되었습니다!");
       console.log(msg.content.length);
