@@ -14,6 +14,7 @@ const information = require("../../lib/function/infomation/index");
 const soundTrack = require("../../lib/function/soundTrack/index");
 const player = require("../../lib/function/player/index");
 const sale = require("../../lib/function/sale/index");
+const userInfomation = require("../../lib/function/userInfo/index");
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
@@ -86,55 +87,9 @@ client.on("message", (msg) => {
   if (msg.content.substring(0, 6) === ">>동접자 ") {
     player.player(msg);
   }
-
+  
   if (msg.content.substring(0, 6) === ">>유저정보") {
-    steam.getUserOwnedGames("76561199042079317").then((asdf) => {
-      console.log(asdf);
-    });
-    steam
-      .getUserSummary("76561199042079317")
-      .then((item) => {
-        console.log(item);
-        steam
-          .getUserLevel("76561199042079317")
-          .then((level) => {
-            console.log(level);
-            const userEmbed = new MessageEmbed()
-              .setColor(color)
-              .setTitle(item.nickname)
-              .setURL(item.url)
-              .setAuthor("SteamUSing", logo)
-              .setThumbnail(item.avatar.large)
-              .addField("\u200B", "\u200B")
-              .addFields(
-                {
-                  name: "닉네임",
-                  value: `${item.nickname}`,
-                  inline: true,
-                },
-                {
-                  name: "레벨",
-                  value: `${level}`,
-                  inline: true,
-                },
-                {
-                  name: "steam ID",
-                  value: `${item.steamID}`,
-                  inline: true,
-                }
-              )
-              .addField(
-                "\u200B",
-                "devGithub - https://github.com/eastcopper/SteamUSing"
-              )
-              .setFooter("SteamUSing", logo);
-            msg.channel.send({ embeds: [userEmbed] });
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    userInfomation.userInfomation(msg);
   }
 
   if (msg.content.substring(0, 7) === ">>유저등록 ") {
