@@ -87,6 +87,56 @@ client.on("message", (msg) => {
     player.player(msg);
   }
 
+  if (msg.content.substring(0, 6) === ">>유저정보") {
+    steam.getUserOwnedGames("76561199042079317").then((asdf) => {
+      console.log(asdf);
+    });
+    steam
+      .getUserSummary("76561199042079317")
+      .then((item) => {
+        console.log(item);
+        steam
+          .getUserLevel("76561199042079317")
+          .then((level) => {
+            console.log(level);
+            const userEmbed = new MessageEmbed()
+              .setColor(color)
+              .setTitle(item.nickname)
+              .setURL(item.url)
+              .setAuthor("SteamUSing", logo)
+              .setThumbnail(item.avatar.large)
+              .addField("\u200B", "\u200B")
+              .addFields(
+                {
+                  name: "닉네임",
+                  value: `${item.nickname}`,
+                  inline: true,
+                },
+                {
+                  name: "레벨",
+                  value: `${level}`,
+                  inline: true,
+                },
+                {
+                  name: "steam ID",
+                  value: `${item.steamID}`,
+                  inline: true,
+                }
+              )
+              .addField(
+                "\u200B",
+                "devGithub - https://github.com/eastcopper/SteamUSing"
+              )
+              .setFooter("SteamUSing", logo);
+            msg.channel.send({ embeds: [userEmbed] });
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   if (msg.content.substring(0, 7) === ">>유저등록 ") {
     if (msg.content.length === 24) {
       const nickName = msg.author.username + "#" + msg.author.discriminator;

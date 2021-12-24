@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const color = "#0D7EAD";
+const color = "#0099ff";
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
 
@@ -76,7 +76,7 @@ module.exports = {
   },
   helpEmbed: function () {
     const helpEmbed = new MessageEmbed()
-      .setColor("#0099ff")
+      .setColor(color)
       .setTitle("SteamUSing 도움말")
       .setAuthor("SteamUSing", logo)
       .setThumbnail(logo)
@@ -113,6 +113,10 @@ module.exports = {
             "게임의 동시접속자 수를 보실 수 있습니다! \n ex) >>동접자 Dota 2",
           inline: false,
         }
+      )
+      .addField(
+        "\u200B",
+        "devGithub - https://github.com/eastcopper/SteamUSing"
       )
       .setFooter("(단, 게임의 이름은 풀 네임으로 작성하셔야 합니다!)", logo);
     return helpEmbed;

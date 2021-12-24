@@ -3,7 +3,6 @@ const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 
 const embed = require("../embed/index");
-const load = require("../../function/loading/index");
 
 module.exports = {
   soundTrack: function (msg) {
