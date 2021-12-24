@@ -55,7 +55,11 @@ module.exports = {
                     {
                       name: "가장 많이 플레이한 게임",
                       value: game[playGame].name,
-
+                      inline: true,
+                    },
+                    {
+                      name: "가진 게임 갯수",
+                      value: `$ {game.length}`,
                       inline: true,
                     }
                   )
