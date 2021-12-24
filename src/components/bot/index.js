@@ -15,6 +15,7 @@ const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
 const color = "#0D7EAD";
 let message;
+let loading = true;
 let saletime = {
   hours: 0,
   minutes: 0,
@@ -80,12 +81,14 @@ client.on("message", (msg) => {
           if (
             item[i].name.toUpperCase() === msg.content.slice(5).toUpperCase()
           ) {
+            loading = false;
             console.log(item[i].appid);
             console.log(i);
             steam
               .getGameDetails(`${item[i].appid}`, false)
               .then((object) => {
                 console.log(object);
+                loading = false;
                 message.delete();
                 infoEmbed = embed.infoEmbed(object);
                 msg.channel.send({ embeds: [infoEmbed] });
@@ -95,6 +98,13 @@ client.on("message", (msg) => {
               });
           }
         }
+        setTimeout(() => {
+          if (loading) {
+            msg.reply("정보를 불러오는데 실패했습니다..");
+          } else {
+            loading = true;
+          }
+        }, 10000);
       })
       .catch((err) => {
         console.log(err);
@@ -132,6 +142,7 @@ client.on("message", (msg) => {
                 .getGameDetails(`${item[i].appid}`, false)
                 .then((object) => {
                   if (object.type === "music") {
+                    loading = false;
                     message.delete();
                     infoEmbed = embed.infoEmbed(object);
                     msg.channel.send({ embeds: [infoEmbed] });
@@ -143,6 +154,13 @@ client.on("message", (msg) => {
             }
           }
         }
+        setTimeout(() => {
+          if (loading) {
+            msg.reply("정보를 불러오는데 실패했습니다..");
+          } else {
+            loading = true;
+          }
+        }, 10000);
       })
       .catch((err) => {
         console.log(err);
@@ -150,6 +168,9 @@ client.on("message", (msg) => {
   }
 
   if (msg.content.substring(0, 6) === ">>동접자 ") {
+    msg.reply("정보를 불러오는 중입니다!").then((msg) => {
+      message = msg;
+    });
     steam.getAppList().then((item) => {
       for (let i = 0; i < item.length; i++) {
         if (item[i].name.toUpperCase() === msg.content.slice(6).toUpperCase()) {
@@ -159,6 +180,8 @@ client.on("message", (msg) => {
               steam
                 .getGameDetails(`${item[i].appid}`, false)
                 .then((object) => {
+                  message.delete();
+                  loading = false;
                   playerEmbed = embed.playerEmbed(object, player);
                   msg.channel.send({ embeds: [playerEmbed] });
                 })
@@ -171,6 +194,13 @@ client.on("message", (msg) => {
             });
         }
       }
+      setTimeout(() => {
+        if (loading) {
+          msg.reply("정보를 불러오는데 실패했습니다..");
+        } else {
+          loading = true;
+        }
+      }, 10000);
     });
   }
 
