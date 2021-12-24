@@ -1,0 +1,1 @@
+worker: .\src\components\bot\index.js
