@@ -2,10 +2,7 @@ const API_KEY = process.env.APIKEY;
 const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 
-const { MessageEmbed } = require("discord.js");
-const color = "#0099ff";
-const logo =
-  "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
+const embed = require("../embed");
 
 module.exports = {
   userInfomation: function (msg) {
@@ -28,43 +25,7 @@ module.exports = {
             steam
               .getUserLevel("76561199042079317")
               .then((level) => {
-                console.log(level);
-                const userEmbed = new MessageEmbed()
-                  .setColor(color)
-                  .setTitle(item.nickname)
-                  .setURL(item.url)
-                  .setAuthor("SteamUSing", logo)
-                  .setThumbnail(item.avatar.large)
-                  .addField("\u200B", "\u200B")
-                  .addFields(
-                    {
-                      name: "닉네임",
-                      value: `${item.nickname}`,
-                      inline: true,
-                    },
-                    {
-                      name: "레벨",
-                      value: `${level}`,
-                      inline: true,
-                    },
-                    {
-                      name: "steam ID",
-                      value: `${item.steamID}`,
-                      inline: true,
-                    },
-                    {
-                      name: "가장 많이 플레이한 게임",
-                      value: game[playGame].name,
-                      inline: true,
-                    },
-                    {
-                      name: "가진 게임 갯수",
-                      value: `$ {game.length}`,
-                      inline: true,
-                    }
-                  )
-                  .setImage(game[playGame].logoURL)
-                  .setFooter("SteamUSing", logo);
+                const userEmbed = embed.userEmbed(item, game, playGame, level);
                 msg.channel.send({ embeds: [userEmbed] });
               })
               .catch((err) => console.log(err));
