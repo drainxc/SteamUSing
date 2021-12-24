@@ -51,18 +51,11 @@ client.on("ready", () => {
               if (type === "game") {
                 if (discount_percent === 100) {
                   console.log(object);
-                  const saleEmbed = new MessageEmbed()
-                    .setColor(color)
-                    .setTitle(object.name)
-                    .setAuthor("SteamUSing", logo)
-                    .setThumbnail(object.header_image)
-                    .addField("가격", "무료")
-                    .setFooter(object.publishers[0], logo);
                   saletime = {
                     hours: hours,
                     minutes: minutes,
                   };
-                  saleItem = saleEmbed;
+                  saleItem = embed.saleEmbed(object);
                 }
               }
             })
@@ -182,18 +175,15 @@ client.on("message", (msg) => {
   }
 
   if (msg.content.substring(0, 7) === ">>유저등록 ") {
-    if (msg.content.length === 23) {
+    if (msg.content.length === 24) {
       const nickName = msg.author.username + "#" + msg.author.discriminator;
       const steamID = msg.content.substring(7, msg.content.length);
       console.log(nickName, steamID);
-      const userEmbed = new MessageEmbed()
-        .setColor(color)
-        .setTitle("회원가입이 성공적으로 완료되었습니다!")
-        .setAuthor("SteamUSing", logo)
-        .setFooter("SteamUSing", logo);
+      userEmbed = embed.userEmbed();
       msg.reply({ embeds: [userEmbed] });
     } else {
       msg.reply("steam ID가 잘 못 되었습니다!");
+      console.log(msg.content.length);
     }
   }
 
