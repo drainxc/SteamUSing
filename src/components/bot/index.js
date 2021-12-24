@@ -10,6 +10,7 @@ const steam = new SteamAPI(API_KEY);
 const TOKEN = process.env.TOKEN;
 
 const embed = require("../../lib/function/embed/index");
+const information = require("../../lib/function/infomation/index")
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
@@ -70,45 +71,7 @@ client.on("ready", () => {
 
 client.on("message", (msg) => {
   if (msg.content.substring(0, 5) === ">>정보 ") {
-    msg.reply("정보를 불러오는 중입니다!").then((msg) => {
-      message = msg;
-    });
-    steam
-      .getAppList()
-      .then((item) => {
-        console.log(item);
-        for (let i = 0; i < item.length; i++) {
-          if (
-            item[i].name.toUpperCase() === msg.content.slice(5).toUpperCase()
-          ) {
-            loading = false;
-            console.log(item[i].appid);
-            console.log(i);
-            steam
-              .getGameDetails(`${item[i].appid}`, false)
-              .then((object) => {
-                console.log(object);
-                loading = false;
-                message.delete();
-                infoEmbed = embed.infoEmbed(object);
-                msg.channel.send({ embeds: [infoEmbed] });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        }
-        setTimeout(() => {
-          if (loading) {
-            msg.reply("정보를 불러오는데 실패했습니다..");
-          } else {
-            loading = true;
-          }
-        }, 10000);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    information.infomation(msg);
   }
 
   if (msg.content.substring(0, 4) === ">>세일") {
