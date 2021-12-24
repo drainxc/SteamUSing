@@ -124,6 +124,12 @@ module.exports = {
           value:
             "게임의 동시접속자 수를 보실 수 있습니다! \n ex) >>동접자 Dota 2",
           inline: false,
+        },
+        {
+          name: ">>뉴스",
+          value:
+            "가장 최근에 나온 게임 소식을 접할 수 있습니다! \n ex) >>뉴스 baba is you",
+          inline: false,
         }
       )
       .addField(
