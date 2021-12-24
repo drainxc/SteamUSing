@@ -74,4 +74,47 @@ module.exports = {
       .setFooter(object.publishers[0], logo);
     return playerEmbed;
   },
+  helpEmbed: function () {
+    const helpEmbed = new MessageEmbed()
+      .setColor("#0099ff")
+      .setTitle("SteamUSing 도움말")
+      .setAuthor("SteamUSing", logo)
+      .setThumbnail(logo)
+      .addFields(
+        {
+          name: ">>도움",
+          value: "지원하는 모든 명령어를 보실 수 있습니다! \n ex) >>도움",
+          inline: false,
+        },
+        {
+          name: ">>유저등록",
+          value:
+            "유저의 스팀ID를 기억해 언제든지 사용하실 수 있습니다! \n ex) >>유저등록 76561199042079317(steam ID)",
+          inline: false,
+        },
+        {
+          name: ">>정보",
+          value: "게임의 정보를 보실 수 있습니다! \n ex) >>정보 Hollow Knight",
+          inline: false,
+        },
+        {
+          name: ">>노래",
+          value:
+            "게임 사운드트랙의 정보를 보실 수 있습니다! \n ex) >>노래 CupHead",
+          inline: false,
+        },
+        {
+          name: ">>세일",
+          value: "현재 100% 세일하는 게임을 보실 수 있습니다! \n ex) >>세일",
+        },
+        {
+          name: ">>동접자",
+          value:
+            "게임의 동시접속자 수를 보실 수 있습니다! \n ex) >>동접자 Dota 2",
+          inline: false,
+        }
+      )
+      .setFooter("(단, 게임의 이름은 풀 네임으로 작성하셔야 합니다!)", logo);
+    return helpEmbed;
+  },
 };
