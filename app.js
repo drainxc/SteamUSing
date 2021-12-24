@@ -10,14 +10,14 @@ const steam = new SteamAPI(API_KEY);
 const TOKEN = process.env.TOKEN;
 const axios = require("axios");
 
-const embed = require("../../lib/function/embed/index");
-const information = require("../../lib/function/infomation/index");
-const soundTrack = require("../../lib/function/soundTrack/index");
-const player = require("../../lib/function/player/index");
-const sale = require("../../lib/function/sale/index");
-const userInfomation = require("../../lib/function/userInfo/index");
-const recentGame = require("../../lib/function/recentGame/index");
-const news = require("../../lib/function/news/index");
+const embed = require("./src/lib/function/embed/index");
+const information = require("./src/lib/function/infomation/index");
+const soundTrack = require("./src/lib/function/soundTrack/index");
+const player = require("./src/lib/function/player/index");
+const sale = require("./src/lib/function/sale/index");
+const userInfomation = require("./src/lib/function/userInfo/index");
+const recentGame = require("./src/lib/function/recentGame/index");
+const news = require("./src/lib/function/news/index");
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
