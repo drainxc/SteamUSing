@@ -110,7 +110,7 @@ client.on("message", (msg) => {
     player.player(msg);
   }
 
-  if (msg.content.substring(0, 6) === ">>유저정보") {
+  if (msg.content.substring(0, 7) === ">>유저정보 ") {
     userInfomation.userInfomation(msg);
   }
 
@@ -131,7 +131,7 @@ client.on("message", (msg) => {
     news.news(msg);
   }
 
-  if (msg.content.substring(0, 6) === ">>최근게임") {
+  if (msg.content.substring(0, 7) === ">>최근게임 ") {
     recentGame.recentGame(msg);
   }
 
