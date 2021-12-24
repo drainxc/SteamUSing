@@ -1,4 +1,8 @@
 {
+  "name": "SteamUSing",
+  "version": "1.0.0",
+  "description": "A discode bot that shares steam information.",
+  "main": "app.js",
   "dependencies": {
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
@@ -6,5 +10,23 @@
     "dotenv": "^10.0.0",
     "steam-price-api": "^2.0.0",
     "steamapi": "^2.2.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eastcopper/SteamUSing"
+  },
+  "keywords": [
+    "discord",
+    "javascript",
+    "nodejs"
+  ],
+  "author": "Marshall K",
+  "bugs": {
+    "url": "https://github.com/eastcopper/SteamUSing"
+  },
+  "homepage": "https://github.com/eastcopper/SteamUSing"
 }
