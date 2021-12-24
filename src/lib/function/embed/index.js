@@ -227,4 +227,15 @@ module.exports = {
       .setFooter("SteamUSing", logo);
     return recentEmbed;
   },
+  newsEmbed: function (object, content) {
+    const newsEmbed = new MessageEmbed()
+      .setColor(color)
+      .setTitle(object.name)
+      .setURL(object.website)
+      .setAuthor("SteamUSing", logo)
+      .setThumbnail(object.header_image)
+      .setDescription(`${content[0].contents}`)
+      .setFooter("SteamUSing", logo);
+    return newsEmbed;
+  },
 };
