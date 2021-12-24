@@ -106,6 +106,18 @@ module.exports = {
         {
           name: ">>세일",
           value: "현재 100% 세일하는 게임을 보실 수 있습니다! \n ex) >>세일",
+          inline: false,
+        },
+        {
+          name: ">>유저정보",
+          value: "자신의 유저정보를 한 눈에 볼 수 있습니다! \n ex) >>유저정보",
+          inline: false,
+        },
+        {
+          name: ">>최근게임",
+          value:
+            "자신이 마지막으로 한 게임을 볼 수 있습니다! \n ex) >>최근게임",
+          inline: false,
         },
         {
           name: ">>동접자",
