@@ -2,11 +2,7 @@ const API_KEY = process.env.APIKEY;
 const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 
-const { MessageEmbed } = require("discord.js");
-const color = "#0099ff";
-const logo =
-  "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
-
+const embed = require("../embed");
 
 module.exports = {
   news: function (msg) {
@@ -26,14 +22,7 @@ module.exports = {
               .getGameDetails(`${item[i].appid}`, false)
               .then((object) => {
                 steam.getGameNews(`${item[i].appid}`).then((content) => {
-                  const newsEmbed = new MessageEmbed()
-                    .setColor(color)
-                    .setTitle(object.name)
-                    .setURL(object.website)
-                    .setAuthor("SteamUSing", logo)
-                    .setThumbnail(object.header_image)
-                    .setDescription(`${content[0].contents}`)
-                    .setFooter("SteamUSing", logo);
+                  const newsEmbed = embed.newsEmbed(object, content);
                   msg.channel.send({ embeds: [newsEmbed] });
                 });
               })
