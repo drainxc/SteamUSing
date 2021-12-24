@@ -1,1 +1,1 @@
-worker: .\src\components\bot\index.js
+worker: app.js
