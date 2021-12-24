@@ -110,13 +110,13 @@ module.exports = {
         },
         {
           name: ">>유저정보",
-          value: "자신의 유저정보를 한 눈에 볼 수 있습니다! \n ex) >>유저정보",
+          value: "자신의 유저정보를 한 눈에 볼 수 있습니다! \n ex) >>유저정보 ldh7228",
           inline: false,
         },
         {
           name: ">>최근게임",
           value:
-            "자신이 마지막으로 한 게임을 볼 수 있습니다! \n ex) >>최근게임",
+            "자신이 마지막으로 한 게임을 볼 수 있습니다! \n ex) >>최근게임 pinkpoma",
           inline: false,
         },
         {
@@ -136,7 +136,7 @@ module.exports = {
         "\u200B",
         "devGithub - https://github.com/eastcopper/SteamUSing"
       )
-      .setFooter("(단, 게임의 이름은 풀 네임으로 작성하셔야 합니다!)", logo);
+      .setFooter("(단, 유저정보를 받기 위해서는 사용자 지정 URL을 지정해주셔야 합니다.)", logo);
     return helpEmbed;
   },
   saleEmbed: function (object) {
