@@ -17,6 +17,7 @@ const player = require("../../lib/function/player/index");
 const sale = require("../../lib/function/sale/index");
 const userInfomation = require("../../lib/function/userInfo/index");
 const recentGame = require("../../lib/function/recentGame/index");
+const news = require("../../lib/function/news/index");
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
@@ -89,6 +90,10 @@ client.on("message", (msg) => {
 
   // SignUp();
 
+  // steam.resolve("https://steamcommunity.com/id/DimGG").then((id) => {
+  //   console.log(id);
+  // });
+
   if (msg.content.substring(0, 5) === ">>정보 ") {
     information.infomation(msg);
   }
@@ -109,17 +114,21 @@ client.on("message", (msg) => {
     userInfomation.userInfomation(msg);
   }
 
-  if (msg.content.substring(0, 7) === ">>유저등록 ") {
-    if (msg.content.length === 24) {
-      const nickName = msg.author.username + "#" + msg.author.discriminator;
-      const steamID = msg.content.substring(7, msg.content.length);
-      console.log(nickName, steamID);
-      signUpEmbed = embed.signUpEmbed();
-      msg.reply({ embeds: [signUpEmbed] });
-    } else {
-      msg.reply("steam ID가 잘 못 되었습니다!");
-      console.log(msg.content.length);
-    }
+  // if (msg.content.substring(0, 7) === ">>유저등록 ") {
+  //   if (msg.content.length === 24) {
+  //     const nickName = msg.author.username + "#" + msg.author.discriminator;
+  //     const steamID = msg.content.substring(7, msg.content.length);
+  //     console.log(nickName, steamID);
+  //     signUpEmbed = embed.signUpEmbed();
+  //     msg.reply({ embeds: [signUpEmbed] });
+  //   } else {
+  //     msg.reply("steam ID가 잘 못 되었습니다!");
+  //     console.log(msg.content.length);
+  //   }
+  // }
+
+  if (msg.content.substring(0, 5) == ">>뉴스 ") {
+    news.news(msg);
   }
 
   if (msg.content.substring(0, 6) === ">>최근게임") {
