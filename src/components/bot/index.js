@@ -9,7 +9,7 @@ const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 const TOKEN = process.env.TOKEN;
 
-const embed = require("../../lib/function/infoEmbed/index");
+const embed = require("../../lib/function/embed/index");
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
