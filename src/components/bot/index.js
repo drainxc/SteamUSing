@@ -34,6 +34,7 @@ let saleItem = new MessageEmbed()
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity('SteamUSing | >>도움', { type: 'PLAYING' })
   let count = 0;
   steam
     .get(`/ISteamApps/GetAppList/v2/?key=${API_KEY}`)

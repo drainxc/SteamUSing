@@ -86,12 +86,12 @@ module.exports = {
           value: "지원하는 모든 명령어를 보실 수 있습니다! \n ex) >>도움",
           inline: false,
         },
-        {
-          name: ">>유저등록",
-          value:
-            "유저의 스팀ID를 기억해 언제든지 사용하실 수 있습니다! \n ex) >>유저등록 76561199042079317(steam ID)",
-          inline: false,
-        },
+        // {
+        //   name: ">>유저등록",
+        //   value:
+        //     "유저의 스팀ID를 기억해 언제든지 사용하실 수 있습니다! \n ex) >>유저등록 76561199042079317(steam ID)",
+        //   inline: false,
+        // },
         {
           name: ">>정보",
           value: "게임의 정보를 보실 수 있습니다! \n ex) >>정보 Hollow Knight",
@@ -110,7 +110,8 @@ module.exports = {
         },
         {
           name: ">>유저정보",
-          value: "자신의 유저정보를 한 눈에 볼 수 있습니다! \n ex) >>유저정보 ldh7228",
+          value:
+            "자신의 유저정보를 한 눈에 볼 수 있습니다! \n ex) >>유저정보 ldh7228",
           inline: false,
         },
         {
@@ -136,7 +137,10 @@ module.exports = {
         "\u200B",
         "devGithub - https://github.com/eastcopper/SteamUSing"
       )
-      .setFooter("(단, 유저정보를 받기 위해서는 사용자 지정 URL을 지정해주셔야 합니다.)", logo);
+      .setFooter(
+        "(단, 유저정보를 받기 위해서는 사용자 지정 URL을 지정하거나 비공개가 아니여야합니다!)",
+        logo
+      );
     return helpEmbed;
   },
   saleEmbed: function (object) {
