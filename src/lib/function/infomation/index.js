@@ -41,7 +41,7 @@ module.exports = {
           } else {
             loading = true;
           }
-        }, 10000);
+        }, 7500);
       })
       .catch((err) => {
         console.log(err);
