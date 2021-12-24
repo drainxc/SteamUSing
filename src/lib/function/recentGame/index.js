@@ -7,13 +7,20 @@ const embed = require("../embed");
 module.exports = {
   recentGame: function (msg) {
     steam
-      .getUserRecentGames("76561199042079317")
-      .then((item) => {
-        const recentEmbed = embed.resentEmbed(item);
-        msg.channel.send({ embeds: [recentEmbed] });
+      .resolve("https://steamcommunity.com/id/" + `${msg.content.slice(7)}`)
+      .then((id) => {
+        steam
+          .getUserRecentGames(`${id}`)
+          .then((item) => {
+            const recentEmbed = embed.resentEmbed(item);
+            msg.channel.send({ embeds: [recentEmbed] });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
-        console.log(err);
+        msg.reply("맞는 유저정보가 없습니다..");
       });
   },
 };
