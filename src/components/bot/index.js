@@ -13,6 +13,7 @@ const embed = require("../../lib/function/embed/index");
 const information = require("../../lib/function/infomation/index");
 const soundTrack = require("../../lib/function/soundTrack/index");
 const player = require("../../lib/function/player/index");
+const sale = require("../../lib/function/sale/index");
 
 const logo =
   "https://cdn.discordapp.com/attachments/921024184694497341/923239613617807371/Group_29.png";
@@ -37,7 +38,7 @@ client.on("ready", () => {
         const now = new Date();
         const hours = now.getHours();
         const minutes = now.getMinutes();
-        if (hours === saletime.hours && minutes === saletime.minutes) {
+        if (hours === saletime.hours && minutes === saletime.minutes - 1) {
           count = 0;
           saleItem = new MessageEmbed()
             .setColor(color)
@@ -75,7 +76,7 @@ client.on("message", (msg) => {
   }
 
   if (msg.content.substring(0, 4) === ">>세일") {
-    msg.channel.send({ embeds: [saleItem] });
+    sale.sale(msg, saleItem);
   }
 
   if (msg.content.substring(0, 5) === ">>노래 ") {
