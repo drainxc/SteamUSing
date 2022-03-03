@@ -1,4 +1,4 @@
-const API_KEY = process.env.APIKEY;
+const API_KEY = "78093FE6ED103C9612F993AEDA484F93";
 const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 

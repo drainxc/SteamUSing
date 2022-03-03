@@ -4,18 +4,17 @@ const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 const { MessageEmbed } = require("discord.js");
-const API_KEY = process.env.APIKEY;
+const API_KEY = "78093FE6ED103C9612F993AEDA484F93";
 const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 const TOKEN = process.env.TOKEN;
-const axios = require("axios");
 
 const embed = require("./src/lib/function/embed/index");
-const information = require("./src/lib/function/infomation/index");
+const information = require("./src/lib/function/information/index");
 const soundTrack = require("./src/lib/function/soundTrack/index");
 const player = require("./src/lib/function/player/index");
 const sale = require("./src/lib/function/sale/index");
-const userInfomation = require("./src/lib/function/userInfo/index");
+const userInformation = require("./src/lib/function/userInfo/index");
 const recentGame = require("./src/lib/function/recentGame/index");
 const news = require("./src/lib/function/news/index");
 
@@ -34,7 +33,7 @@ let saleItem = new MessageEmbed()
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity('SteamUSing | >>도움', { type: 'PLAYING' })
+  client.user.setActivity("SteamUSing | >>도움", { type: "PLAYING" });
   let count = 0;
   steam
     .get(`/ISteamApps/GetAppList/v2/?key=${API_KEY}`)
@@ -112,7 +111,7 @@ client.on("message", (msg) => {
   }
 
   if (msg.content.substring(0, 7) === ">>유저정보 ") {
-    userInfomation.userInfomation(msg);
+    userInformation.userInformation(msg);
   }
 
   // if (msg.content.substring(0, 7) === ">>유저등록 ") {
@@ -142,4 +141,4 @@ client.on("message", (msg) => {
   }
 });
 
-client.login(TOKEN);
+client.login(process.env.TOKEN);

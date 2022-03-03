@@ -1,11 +1,11 @@
-const API_KEY = process.env.APIKEY;
+const API_KEY = "78093FE6ED103C9612F993AEDA484F93";
 const SteamAPI = require("steamapi");
 const steam = new SteamAPI(API_KEY);
 
 const embed = require("../embed/index");
 
 module.exports = {
-  infomation: function (msg) {
+  information: function (msg) {
     msg.reply("정보를 불러오는 중입니다!").then((msg) => {
       message = msg;
     });

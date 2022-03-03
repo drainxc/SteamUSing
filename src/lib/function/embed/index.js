@@ -18,6 +18,8 @@ module.exports = {
     const { final_formatted = "무료", discount_percent = "없음" } =
       price_overview;
     const { total = "없음" } = recommendations;
+
+    
     const infoEmbed = new MessageEmbed()
       .setColor(color)
       .setTitle(name)
@@ -44,7 +46,6 @@ module.exports = {
         }
       )
       .setImage(header_image)
-      .setTimestamp()
       .setFooter(`${publishers[0]}`, logo);
     return infoEmbed;
   },
