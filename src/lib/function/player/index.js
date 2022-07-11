@@ -10,7 +10,7 @@ module.exports = {
       message = msg;
     });
     steam.getAppList().then((item) => {
-        let loading = true;
+      let loading = true;
       for (let i = 0; i < item.length; i++) {
         if (item[i].name.toUpperCase() === msg.content.slice(6).toUpperCase()) {
           steam
@@ -41,5 +41,6 @@ module.exports = {
         }
       }, 7500);
     });
+    return;
   },
 };

@@ -22,5 +22,6 @@ module.exports = {
       .catch((err) => {
         msg.reply("맞는 유저정보가 없습니다..");
       });
+    return;
   },
 };
